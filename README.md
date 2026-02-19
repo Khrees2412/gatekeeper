@@ -131,7 +131,7 @@ curl -i -X POST "http://127.0.0.1:8080/write?owner=<PUBKEY>"
 
 ## Tradeoffs
 - Per-request transaction cost: each `consume` is an on-chain transaction.
-- Hot account contention: every consume mutates one `ApiKey` account.
+- Hot account contention: every consume mutates one `ApiKey` account. This demo uses a single mutable `ApiKey` account per key; production would shard counters across multiple PDAs or separate real-time auth from on-chain settlement.
 - Demo suitability: this is acceptable for correctness and shared verifiability; production systems typically split read-path auth from settlement or shard counters.
 
 ## Devnet Evidence (Fill After Deployment)

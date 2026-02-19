@@ -3,7 +3,10 @@ use anchor_lang::prelude::*;
 use crate::errors::GatekeeperError;
 use crate::state::GlobalState;
 
-pub fn assert_authority(global_state: &Account<GlobalState>, authority: &Signer) -> Result<()> {
+pub fn assert_authority<'info>(
+    global_state: &Account<'info, GlobalState>,
+    authority: &Signer<'info>,
+) -> Result<()> {
     require_keys_eq!(
         global_state.authority,
         authority.key(),

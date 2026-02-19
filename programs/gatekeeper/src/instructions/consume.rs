@@ -6,7 +6,11 @@ use crate::state::{ApiKey, Role, UsagePlan};
 
 #[derive(Accounts)]
 pub struct Consume<'info> {
-    #[account(mut)]
+    #[account(
+        mut,
+        constraint = api_key.plan == usage_plan.key() @ GatekeeperError::InvalidPlanOrRole,
+        constraint = api_key.role == role.key() @ GatekeeperError::InvalidPlanOrRole,
+    )]
     pub api_key: Account<'info, ApiKey>,
     pub usage_plan: Account<'info, UsagePlan>,
     pub role: Account<'info, Role>,
