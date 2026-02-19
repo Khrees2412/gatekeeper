@@ -1,8 +1,13 @@
 {
   "license": "ISC",
   "scripts": {
-    "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
-    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
+    "build": "anchor build",
+    "test": "anchor test",
+    "test:ts": "ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts",
+    "cli": "ts-node --project tsconfig.json --transpile-only app/cli.ts",
+    "adapter": "ts-node --project tsconfig.json --transpile-only app/adapter.ts",
+    "lint": "prettier \"**/*.{js,ts,json,md,toml}\" --check && cargo fmt --all -- --check",
+    "lint:fix": "prettier \"**/*.{js,ts,json,md,toml}\" -w && cargo fmt --all"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.31.1"
