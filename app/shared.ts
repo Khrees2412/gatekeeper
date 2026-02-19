@@ -96,7 +96,7 @@ function readWalletFromFile(walletPath: string): Keypair {
 }
 
 export function getProvider(): anchor.AnchorProvider {
-  const rpcUrl = process.env.ANCHOR_PROVIDER_URL ?? "http://127.0.0.1:8898";
+  const rpcUrl = process.env.ANCHOR_PROVIDER_URL ?? "http://127.0.0.1:8899";
   const walletPath = expandHome(
     process.env.ANCHOR_WALLET ?? "~/.config/solana/id.json"
   );
@@ -204,6 +204,10 @@ export function explorerTxUrl(signature: string): string {
   const cluster = clusterName();
   if (cluster === "mainnet-beta") {
     return `https://explorer.solana.com/tx/${signature}`;
+  }
+  if (cluster === "localnet") {
+    const rpcUrl = process.env.ANCHOR_PROVIDER_URL ?? "http://localhost:8899";
+    return `https://explorer.solana.com/tx/${signature}?cluster=custom&customUrl=${encodeURIComponent(rpcUrl)}`;
   }
   return `https://explorer.solana.com/tx/${signature}?cluster=${cluster}`;
 }

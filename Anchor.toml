@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-gatekeeper = "9E2niqsSRf2GspkTvFE927shX6D1V27TRdxB4cA2YJaj"
+gatekeeper = "45QGviwx5gsAyo2tSVGDn482baYC5Dvk6EYRZggv9Rfv"
 
 [registry]
 url = "https://api.apr.dev"
@@ -15,9 +15,15 @@ url = "https://api.apr.dev"
 cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
-[test.validator]
-rpc_port = 8898
-bind_address = "127.0.0.1"
-
 [scripts]
 test = "yarn run test:ts"
+
+[test]
+startup_wait = 5000
+shutdown_wait = 2000
+upgradeable = false
+
+[test.validator]
+bind_address = "127.0.0.1"
+ledger = ".anchor/test-ledger"
+rpc_port = 8899

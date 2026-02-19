@@ -28,7 +28,7 @@ cp .env.example .env
 ```
 
 Variables:
-- `ANCHOR_PROVIDER_URL` RPC URL (`http://127.0.0.1:8898` for local tests)
+- `ANCHOR_PROVIDER_URL` RPC URL (`http://127.0.0.1:8899` for local tests)
 - `ANCHOR_WALLET` keypair path
 - `GATEKEEPER_PROGRAM_ID` deployed program address
 - `GATEKEEPER_CLUSTER` explorer cluster param (`localnet`, `devnet`, `mainnet-beta`)

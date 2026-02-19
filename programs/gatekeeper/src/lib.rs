@@ -9,7 +9,7 @@ pub mod state;
 pub use instructions::*;
 pub use state::*;
 
-declare_id!("9E2niqsSRf2GspkTvFE927shX6D1V27TRdxB4cA2YJaj");
+declare_id!("45QGviwx5gsAyo2tSVGDn482baYC5Dvk6EYRZggv9Rfv");
 
 #[program]
 pub mod gatekeeper {
