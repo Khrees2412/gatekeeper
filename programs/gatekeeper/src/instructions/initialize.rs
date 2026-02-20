@@ -1,11 +1,9 @@
 use anchor_lang::prelude::*;
 
 use crate::constants::GLOBAL_STATE_SEED;
-use crate::errors::GatekeeperError;
 use crate::state::GlobalState;
 
 #[derive(Accounts)]
-#[instruction(authority: Pubkey)]
 pub struct Initialize<'info> {
     #[account(mut)]
     pub authority: Signer<'info>,
@@ -20,15 +18,9 @@ pub struct Initialize<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn handler(ctx: Context<Initialize>, authority: Pubkey) -> Result<()> {
-    require_keys_eq!(
-        ctx.accounts.authority.key(),
-        authority,
-        GatekeeperError::Unauthorized
-    );
-
+pub fn handler(ctx: Context<Initialize>) -> Result<()> {
     let global_state = &mut ctx.accounts.global_state;
-    global_state.authority = authority;
+    global_state.authority = ctx.accounts.authority.key();
     global_state.bump = ctx.bumps.global_state;
 
     Ok(())

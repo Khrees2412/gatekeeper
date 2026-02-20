@@ -1,3 +1,5 @@
+#![allow(unexpected_cfgs, deprecated)]
+
 use anchor_lang::prelude::*;
 
 pub mod constants;
@@ -15,8 +17,8 @@ declare_id!("45QGviwx5gsAyo2tSVGDn482baYC5Dvk6EYRZggv9Rfv");
 pub mod gatekeeper {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>, authority: Pubkey) -> Result<()> {
-        crate::instructions::initialize::handler(ctx, authority)
+    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        crate::instructions::initialize::handler(ctx)
     }
 
     pub fn create_plan(

@@ -1,3 +1,5 @@
+#![allow(ambiguous_glob_reexports)]
+
 pub mod consume;
 pub mod create_plan;
 pub mod initialize;

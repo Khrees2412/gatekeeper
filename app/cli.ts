@@ -59,7 +59,7 @@ async function main() {
 
   if (command === "init") {
     const signature = await program.methods
-      .initialize(provider.wallet.publicKey)
+      .initialize()
       .accountsPartial({
         authority: provider.wallet.publicKey,
         globalState,

@@ -8,6 +8,9 @@ skip-lint = false
 [programs.localnet]
 gatekeeper = "45QGviwx5gsAyo2tSVGDn482baYC5Dvk6EYRZggv9Rfv"
 
+[programs.devnet]
+gatekeeper = "45QGviwx5gsAyo2tSVGDn482baYC5Dvk6EYRZggv9Rfv"
+
 [registry]
 url = "https://api.apr.dev"
 

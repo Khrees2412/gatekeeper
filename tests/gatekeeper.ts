@@ -213,9 +213,9 @@ describe("gatekeeper", function () {
     await fund(outsider.publicKey);
   });
 
-  it("GK-001/GK-002: initializes global state, PDA determinism, and account sizing", async () => {
+  it("initializes global state, PDA determinism, and account sizing", async () => {
     await program.methods
-      .initialize(authority)
+      .initialize()
       .accountsPartial({
         authority,
         globalState: globalStatePda,
@@ -246,7 +246,7 @@ describe("gatekeeper", function () {
 
     await expectFailure(
       program.methods
-        .initialize(authority)
+        .initialize()
         .accountsPartial({
           authority,
           globalState: globalStatePda,
@@ -256,7 +256,7 @@ describe("gatekeeper", function () {
     );
   });
 
-  it("GK-003/GK-003b: creates plan, enforces authority, and toggles active state", async () => {
+  it("creates plan, enforces authority, and toggles active state", async () => {
     const planId = nextPlan();
     const usagePlan = await createPlan(planId, bn(60), bn(10), true);
     const fetched = await program.account.usagePlan.fetch(usagePlan);
@@ -303,7 +303,7 @@ describe("gatekeeper", function () {
     );
   });
 
-  it("GK-004: upserts role and enforces authority", async () => {
+  it("upserts role and enforces authority", async () => {
     const roleId = nextRole();
     const role = await upsertRole(roleId, "reader", SCOPE_READ);
     const created = await program.account.role.fetch(role);
@@ -337,7 +337,7 @@ describe("gatekeeper", function () {
     );
   });
 
-  it("GK-005: issues keys with deterministic plan/role checks", async () => {
+  it("issues keys with deterministic plan/role checks", async () => {
     const planId = nextPlan();
     const roleId = nextRole();
     await createPlan(planId, bn(60), bn(10), true);
@@ -391,7 +391,7 @@ describe("gatekeeper", function () {
     );
   });
 
-  it("GK-006: revokes keys and enforces authority", async () => {
+  it("revokes keys and enforces authority", async () => {
     const planId = nextPlan();
     const roleId = nextRole();
     await createPlan(planId, bn(60), bn(10), true);
@@ -418,7 +418,7 @@ describe("gatekeeper", function () {
     );
   });
 
-  it("GK-007: consume guard checks (revoked, inactive plan, invalid plan/role)", async () => {
+  it("consume rejects revoked keys, inactive plans, and mismatched accounts", async () => {
     const revokedPlanId = nextPlan();
     const revokedRoleId = nextRole();
     await createPlan(revokedPlanId, bn(60), bn(10), true);
@@ -463,7 +463,7 @@ describe("gatekeeper", function () {
     );
   });
 
-  it("GK-008: consume scope authorization", async () => {
+  it("consume enforces scope bitmask authorization", async () => {
     const planId = nextPlan();
     const roleId = nextRole();
     await createPlan(planId, bn(60), bn(10), true);
@@ -482,7 +482,7 @@ describe("gatekeeper", function () {
     );
   });
 
-  it("GK-009: consume fixed-window rate limiting", async () => {
+  it("consume enforces fixed-window rate limiting", async () => {
     const planId = nextPlan();
     const roleId = nextRole();
     await createPlan(planId, bn(3), bn(2), true);
@@ -509,7 +509,7 @@ describe("gatekeeper", function () {
     expect(afterReset.windowStart.toNumber()).to.be.gte(beforeReset.windowStart.toNumber());
   });
 
-  it("GK-010: IDL exposes named custom errors", async () => {
+  it("IDL exposes all named custom errors", async () => {
     const idlErrors = ((program.idl as any).errors ?? []).map((e: any) =>
       String(e.name).toLowerCase()
     );

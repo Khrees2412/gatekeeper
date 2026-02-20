@@ -27,17 +27,6 @@ pub fn handler(ctx: Context<Consume>, required_scopes_mask: u64) -> Result<()> {
     );
     require!(usage_plan.is_active, GatekeeperError::PlanInactive);
 
-    require_keys_eq!(
-        api_key.plan,
-        usage_plan.key(),
-        GatekeeperError::InvalidPlanOrRole
-    );
-    require_keys_eq!(
-        api_key.role,
-        role.key(),
-        GatekeeperError::InvalidPlanOrRole
-    );
-
     require!(
         role.scopes_bitmask & required_scopes_mask == required_scopes_mask,
         GatekeeperError::InsufficientScopes

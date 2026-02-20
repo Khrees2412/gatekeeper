@@ -6,6 +6,4 @@ node_modules
 test-ledger
 .yarn
 .env
-
-
-tickets.md
+docs/
